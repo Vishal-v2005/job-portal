@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-  const rawBase = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'
+const rawBase =
+  (import.meta.env.VITE_API_URL || '').trim() ||
+  (import.meta.env.PROD ? '' : 'http://127.0.0.1:8000')
 export const API_BASE = rawBase.replace(/\/$/, '')
 
 const client = axios.create({
