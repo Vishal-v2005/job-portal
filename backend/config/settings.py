@@ -148,8 +148,7 @@ CORS_ALLOWED_ORIGINS = [
     ).split(",")
     if o.strip()
 ]
-# Allow all Vercel preview/production URLs when deployed
-if os.getenv("CORS_ALLOW_VERCEL", "true").lower() in ("1", "true", "yes"):
+if os.getenv("CORS_ALLOW_VERCEL", "").lower() in ("1", "true", "yes"):
     CORS_ALLOWED_ORIGIN_REGEXES = [
         r"^https://.*\.vercel\.app$",
     ]

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as api from '../api'
+import { mediaUrl } from '../api'
 import { useAuth } from '../auth/AuthContext'
 import { ROLES } from '../auth/AuthContext'
 import PageHero from '../components/PageHero'
@@ -104,7 +105,7 @@ export default function Applications() {
                   <td>
                     {a.application_resume ? (
                       <div>
-                        <a href={a.application_resume.file} target="_blank" rel="noreferrer">
+                        <a href={mediaUrl(a.application_resume.file)} target="_blank" rel="noreferrer">
                           View resume
                         </a>
                         <div className="muted small">

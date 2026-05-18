@@ -54,13 +54,14 @@ Open the URL Vite prints (usually `http://localhost:5173`). Set `VITE_API_URL` i
 
 If `mysqlclient` fails to install, this project uses **PyMySQL** (`pymysql.install_as_MySQLdb()` in `config/__init__.py`). Ensure `MYSQL_*` is correct when not using SQLite.
 
-## Deploy frontend (Vercel + GitHub)
+## Deploy online (Vercel + Render)
 
-Repo: [github.com/Vishal-v2005/job-portal](https://github.com/Vishal-v2005/job-portal)
+Full step-by-step guide: **[DEPLOY.md](DEPLOY.md)**
 
-1. Import the repo in [Vercel](https://vercel.com/vishals-projects-0f0c0776) (or use the linked project **job-portal**).
-2. Root directory: repository root (uses `vercel.json` to build `frontend/`).
-3. Add environment variable: `VITE_API_URL` = your deployed Django API URL (no trailing slash).
-4. Push to `main` — Vercel deploys automatically.
+| Service | Where | Typical URL |
+|---------|--------|-------------|
+| Frontend | [Vercel](https://vercel.com) | `https://your-app.vercel.app` |
+| Backend API | [Render](https://render.com) | `https://job-portal-api.onrender.com` |
+| Admin | Render (same as API) | `https://job-portal-api.onrender.com/admin/` |
 
-The Django backend must be hosted separately (Render, Railway, etc.) and allow your Vercel URL in `CORS_ALLOWED_ORIGINS`.
+After deploy, set Vercel `VITE_API_URL` to your Render API URL, and Render `CORS_ALLOWED_ORIGINS` to your Vercel URL.

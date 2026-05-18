@@ -11,4 +11,3 @@ frontend/.env
 .DS_Store
 *.pyc
 .vite/
-.vercel

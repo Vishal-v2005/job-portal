@@ -1,9 +1,23 @@
 import axios from 'axios'
 
-const rawBase =
-  (import.meta.env.VITE_API_URL || '').trim() ||
-  (import.meta.env.PROD ? '' : 'http://127.0.0.1:8000')
-export const API_BASE = rawBase.replace(/\/$/, '')
+function resolveApiBase() {
+  const fromEnv = (import.meta.env.VITE_API_URL || '').trim()
+  if (fromEnv) return fromEnv.replace(/\/$/, '')
+  if (import.meta.env.PROD && typeof window !== 'undefined') {
+    // Vercel rewrites /api and /media to Render (see vercel.json)
+    return window.location.origin
+  }
+  return 'http://127.0.0.1:8000'
+}
+
+export const API_BASE = resolveApiBase()
+
+/** Turn relative /media/... paths into a full URL for resume links. */
+export function mediaUrl(path) {
+  if (!path) return ''
+  if (/^https?:\/\//i.test(path)) return path
+  return `${API_BASE}${path.startsWith('/') ? path : `/${path}`}`
+}
 
 const client = axios.create({
   baseURL: `${API_BASE}/api`,

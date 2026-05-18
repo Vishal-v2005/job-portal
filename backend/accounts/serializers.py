@@ -79,3 +79,10 @@ class ResumeSerializer(serializers.ModelSerializer):
         # Lightweight quality proxy for MVP UX: more matched known skills => higher score.
         suggested = self.get_suggested_skill_ids(obj)
         return min(100, len(suggested) * 10)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        request = self.context.get("request")
+        if request and instance.file:
+            data["file"] = request.build_absolute_uri(instance.file.url)
+        return data

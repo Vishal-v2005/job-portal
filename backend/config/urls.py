@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.http import JsonResponse
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -24,7 +25,12 @@ router.register(r"jobs", JobViewSet, basename="job")
 router.register(r"applications", ApplicationViewSet, basename="application")
 router.register(r"resumes", ResumeViewSet, basename="resume")
 
+def health(_request):
+    return JsonResponse({"status": "ok"})
+
+
 urlpatterns = [
+    path("api/health/", health),
     path("admin/", admin.site.urls),
     path("api/auth/register/", RegisterView.as_view()),
     path("api/auth/token/", EmailTokenObtainPairView.as_view()),
